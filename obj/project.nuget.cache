@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "m3+MtWuZi3w=",
+  "success": true,
+  "projectFilePath": "/home/maearon/dotnet9/DotNetBoilerplate/DotNetBoilerplate.csproj",
+  "expectedPackageFiles": [
+    "/home/maearon/.nuget/packages/microsoft.aspnetcore.openapi/9.0.4/microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
+    "/home/maearon/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
