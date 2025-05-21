@@ -1,0 +1,71 @@
+## Build results
+bin/
+obj/
+out/
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+
+## Mono Auto Generated Files
+mono_crash.*
+
+## VS Code
+.vscode/
+
+## Visual Studio
+.vs/
+*.dbmdl
+*.bak
+*.log
+*.sql
+*.pdb
+
+## IIS Express
+.vs/
+**/.vs/config/
+*.iisexpress
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## npm packages
+node_modules/
+
+## NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Environment files
+.env
+.env.*
+
+## Logs
+*.log
+
+## Others
+*.tmp
+*.temp
+
+## JetBrains Rider
+.idea/
+
+# Backup & temp
+*~ 
+*.tmp 
+*.bak 
+*.old 
+*.orig 
+
+# OS generated
+.DS_Store
+Thumbs.db
