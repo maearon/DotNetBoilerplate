@@ -83,15 +83,15 @@
     let serverError: any = null; // Define serverError outside the try block
   
     try {
-      const response = await api.post('/login', {
-        session: {
+      const response = await api.post('/auth/login', {
+        // session: {
           email: email.value,
           password: password.value,
           remember_me: rememberMe.value
-        }
+        // }
       })
       
-      const { token, remember_token } = response.tokens.access
+      const { token, remember_token } = response.token
       
       if (rememberMe.value) {
         localStorage.setItem('token', token)

@@ -2,7 +2,7 @@ import axios, { type AxiosResponse } from "axios"
 
 let BASE_URL = ""
 if (process.env.NODE_ENV === "development") {
-  BASE_URL = "https://ruby-rails-boilerplate-3s9t.onrender.com/api"
+  BASE_URL = "https://localhost:7217/api"
 } else {
   BASE_URL = "https://ruby-rails-boilerplate-3s9t.onrender.com/api"
 }

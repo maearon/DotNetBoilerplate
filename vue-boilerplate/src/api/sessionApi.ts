@@ -37,7 +37,7 @@ export interface Response<User> {
 
 const sessionApi = {
   create(params: SessionParams): Promise<Response<User>> {
-    const url = '/login';
+    const url = '/auth/login';
     return API.post(url, params);
   },
 
