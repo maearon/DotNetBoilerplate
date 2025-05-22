@@ -61,12 +61,57 @@ maearon@maearon:~$ export DOTNET_ROOT=$HOME/dotnet
 maearon@maearon:~$ export PATH=$PATH:$HOME/dotnet
 maearon@maearon:~$ dotnet --version
 9.0.300
-dotnet dev-certs https --trust, https://localhost:7214 (May be only work on Windows OS)
-maearon@maearon:~/code/DotNetBoilerplate$ dotnet watch run
+✅ Permanent Fix
+You need to add the configuration to the shell startup file. Assuming you are using Bash, follow these steps:
+Step 1: Open the .bashrc file
+nano ~/.bashrc
+Step 2: Add the following line to the end of the file:
+export DOTNET_ROOT=$HOME/dotnet
+export PATH=$PATH:$HOME/dotnet
+Step 3: Apply the changes
+source ~/.bashrc
+sudo /home/maearon/dotnet/dotnet dev-certs https --clean
+sudo /home/maearon/dotnet/dotnet dev-certs https --trust
+dotnet watch run --launch-profile https
+
 dotnet tool install --global dotnet-ef
-dotnet ef
-dotnet ef migrations add InitOrFixModel
+✅ Permanent Fix
+You need to add the configuration to the shell startup file. Assuming you are using Bash, follow these steps:
+Step 1: Open the .bashrc file
+nano ~/.bashrc
+Step 2: Add the following line to the end of the file:
+export PATH=$PATH:$HOME/.dotnet/tools
+Step 3: Apply the changes
+source ~/.bashrc
+maearon@maearon:~/code/DotNetBoilerplate$ dotnet ef
+
+                     _/\__       
+               ---==/    \\      
+         ___  ___   |.    \|\    
+        | __|| __|  |  )   \\\   
+        | _| | _|   \_/ |  //|\\ 
+        |___||_|       /   \\\/\\
+
+Entity Framework Core .NET Command-line Tools 9.0.5
+If you don't have a Migration yet, create your first migration:
+dotnet ef migrations add InitOrFixModel ()
+System.PlatformNotSupportedException: LocalDB is not supported on this platform. (Ubuntu OS)
+✅ Cause
+You are using Linux (Ubuntu), but the connection string in the app is using LocalDB, and LocalDB only works on Windows.
+✅ Solution
+🔧 1. Edit the connection string in appsettings.Development.json or appsettings.json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost,1433;Database=MyAppDb;User Id=sa;Password=Your_password123;Encrypt=true;TrustServerCertificate=true"
+}
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Your_password123" \
+   -p 1433:1433 --name sqlserver \
+   -d mcr.microsoft.com/mssql/server:2022-latest
+🎉 You have successfully started SQL Server in Docker on port 1433! Next, you need to connect your .NET application to this SQL Server.
+"ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=MyAppDb;User Id=sa;Password=Your_password123;TrustServerCertificate=true"
+},
 dotnet ef database update
+
 PS C:\Users\manhn\code\DotNetBoilerplate> dotnet --list-sdks
 9.0.300 [C:\Program Files\dotnet\sdk]
 ```
