@@ -4,7 +4,7 @@
     {
       "entity": {
         "type": "Project",
-        "description": "https://app.swaggerhub.com/apis-docs/maearon/dotnet-boilerplate/1.0.0",
+        "description": "https://app.swaggerhub.com/apis-docs/Kakeishindan/Manenoba/1.0.0",
         "id": "ec04e9c2-886f-4ee4-8c4c-e0fc24ded7a9",
         "name": "maearon"
       },
@@ -112,11 +112,12 @@
                     "items": []
                   },
                   "scheme": {
-                    "name": "http",
+                    "secure": true,
+                    "name": "https",
                     "version": "V11"
                   },
-                  "host": "localhost:8080",
-                  "path": "/api/sessions"
+                  "host": "localhost:7217",
+                  "path": "/api/Session/me"
                 },
                 "id": "2d9c9967-eeb9-44cf-8644-0070a10a92d1",
                 "name": "get session",
@@ -144,7 +145,7 @@
                     "items": []
                   },
                   "bodyType": "Text",
-                  "textBody": "{\"session\":{\"email\":\"manh11117@outlook.com\",\"password\":\"Abc@0974006807\",\"remember_me\":true}}"
+                  "textBody": "{\"email\":\"test@example.com\",\"password\":\"Abcd1234!\",\"remember_me\":true}"
                 },
                 "uri": {
                   "query": {
@@ -152,11 +153,12 @@
                     "items": []
                   },
                   "scheme": {
-                    "name": "http",
+                    "secure": true,
+                    "name": "https",
                     "version": "V11"
                   },
-                  "host": "localhost:8080",
-                  "path": "/api/login"
+                  "host": "localhost:7217",
+                  "path": "/api/auth/login"
                 },
                 "id": "9d6abb30-bd12-4aff-a802-8855c70e2d14",
                 "name": "login",
@@ -893,7 +895,7 @@
         "87514901-d43a-4d1f-9186-5e77a6a03097": {
           "createdAt": "2025-05-21T17:07:33.660+07:00",
           "name": "token",
-          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2Y2VkMTk4Mi02ZDc0LTRkZDctOTg4OC00ZTQ2OTI0YzkwNTAiLCJpYXQiOjE3NDc1NDI4ODgsImV4cCI6MTc0ODE0NzY4OH0.wmEElRAS2qvzgTSqjS4bSd4Oug3t39HnmWcybGxqkp2zS9XY-LcVDSYSQLTB6BHNp0tnX-Jl4qSaxa8T4OtP-A",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI3MTBhMmI4LTFiZGMtNGZiNy1iY2FhLTIyNGJlMzM3ZTVmMiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoidGVzdEBleGFtcGxlLmNvbSIsImp0aSI6IjBkYjhiOWI5LWFiZWYtNDZiMS1hZjZjLThjYmEzMzYyYmFhZSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NDg0ODc0OTUsImlzcyI6IlNhbXBsZUFwcCIsImF1ZCI6IlNhbXBsZUFwcFVzZXJzIn0.01WHjunJCU-lOHjBuWC4mcMQpBI7Pasj_NGjER6wVBU",
           "enabled": true,
           "private": false
         },
@@ -907,7 +909,7 @@
         "4b4cb62d-0236-4df8-addb-291101d7e661": {
           "createdAt": "2025-05-21T17:07:33.660+07:00",
           "name": "refresh",
-          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2Y2VkMTk4Mi02ZDc0LTRkZDctOTg4OC00ZTQ2OTI0YzkwNTAiLCJpYXQiOjE3NDc1NDI4ODgsImV4cCI6MTc0ODc1MjQ4OH0.x_vPGskO7nrUaQNsn90MEjZ_mZG-Nbv3LZ0APmzEkbCV5q5O9NpDJ8ql146k6N9LJkGrzi9ujxpynym5mEofNg",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI3MTBhMmI4LTFiZGMtNGZiNy1iY2FhLTIyNGJlMzM3ZTVmMiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoidGVzdEBleGFtcGxlLmNvbSIsImp0aSI6IjBkYjhiOWI5LWFiZWYtNDZiMS1hZjZjLThjYmEzMzYyYmFhZSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NDg0ODc0OTUsImlzcyI6IlNhbXBsZUFwcCIsImF1ZCI6IlNhbXBsZUFwcFVzZXJzIn0.01WHjunJCU-lOHjBuWC4mcMQpBI7Pasj_NGjER6wVBU",
           "enabled": true,
           "private": false
         },
