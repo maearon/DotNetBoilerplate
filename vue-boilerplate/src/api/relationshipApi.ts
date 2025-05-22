@@ -5,12 +5,11 @@ export interface CreateParams {
 }
 
 export interface CreateResponse {
+  // follow: boolean
   message: string
 }
 
-export interface DestroyResponse {
-  unfollow: boolean
-}
+export type DestroyResponse = string
 
 const relationshipApi = {
   create(params: CreateParams): Promise<CreateResponse> {

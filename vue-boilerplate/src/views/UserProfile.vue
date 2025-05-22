@@ -29,13 +29,13 @@
               <div class="d-flex justify-space-around">
                 <router-link :to="`/users/${user.id}/following`" class="text-decoration-none">
                   <div class="text-center">
-                    <div class="text-h6">{{ user.current_user_following_user }}</div>
+                    <div class="text-h6">{{ user.following }}</div>
                     <div>following</div>
                   </div>
                 </router-link>
                 <router-link :to="`/users/${user.id}/followers`" class="text-decoration-none">
                   <div class="text-center">
-                    <div class="text-h6">{{ user.current_user_following_user }}</div>
+                    <div class="text-h6">{{ user.followers }}</div>
                     <div>followers</div>
                   </div>
                 </router-link>
@@ -210,7 +210,7 @@ const unfollowUser = async () => {
   followLoading.value = true
   try {
     const response = await relationshipApi.destroy(userId.value);
-    if (response.unfollow) {
+    if (response === "" || response === undefined) {
       await setWall()
     }
   } catch (err) {
