@@ -8,7 +8,7 @@ using System.Security.Claims;
 namespace DotNetBoilerplate.Controllers.Api
 {
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     public class SessionController : ControllerBase
     {

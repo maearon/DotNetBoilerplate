@@ -28,7 +28,7 @@ API.interceptors.request.use(
     const rememberToken = localStorage.getItem("remember_token") || sessionStorage.getItem("remember_token")
 
     if (token && token !== "undefined") {
-      config.headers.Authorization = `Bearer ${token} ${rememberToken || ""}`
+      config.headers.Authorization = `Bearer ${token}`
     }
     return config
   },

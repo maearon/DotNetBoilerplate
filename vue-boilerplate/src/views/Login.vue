@@ -91,7 +91,9 @@
         // }
       })
       
-      const { token, remember_token } = response.token
+      const { token
+              // remember_token 
+            } = response
       
       if (rememberMe.value) {
         localStorage.setItem('token', token)
