@@ -38,5 +38,8 @@ POST https://localhost:7217/api/auth/login
         "email": "test@example.com"
     }
 }
-
+```
+```
+dotnet add package Swashbuckle.AspNetCore
+https://localhost:7217/swagger/index.html
 ```
