@@ -43,6 +43,26 @@ localhost:7217   |   swagger GET     /me                 (??Get current authenti
 ```
 
 ```
+maearon@maearon:~$ wget https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.300/dotnet-sdk-9.0.300-linux-x64.tar.gz
+--2025-05-22 12:17:18--  https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.300/dotnet-sdk-9.0.300-linux-x64.tar.gz
+Resolving builds.dotnet.microsoft.com (builds.dotnet.microsoft.com)... 2600:1417:4400:3::1731:68cb, 2600:1417:4400:3::1731:68d6, 23.200.143.11, ...
+Connecting to builds.dotnet.microsoft.com (builds.dotnet.microsoft.com)|2600:1417:4400:3::1731:68cb|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 217847129 (208M) [application/octet-stream]
+Saving to: ‘dotnet-sdk-9.0.300-linux-x64.tar.gz’
+
+dotnet-sdk-9.0.300- 100%[===================>] 207.75M  1.51MB/s    in 1m 47s  
+
+2025-05-22 12:19:05 (1.94 MB/s) - ‘dotnet-sdk-9.0.300-linux-x64.tar.gz’ saved [217847129/217847129]
+
+maearon@maearon:~$ mkdir -p $HOME/dotnet
+maearon@maearon:~$ tar -zxf dotnet-sdk-9.0.300-linux-x64.tar.gz -C $HOME/dotnet
+maearon@maearon:~$ export DOTNET_ROOT=$HOME/dotnet
+maearon@maearon:~$ export PATH=$PATH:$HOME/dotnet
+maearon@maearon:~$ dotnet --version
+9.0.300
+dotnet dev-certs https --trust, https://localhost:7214 (May be only work on Windows OS)
+maearon@maearon:~/code/DotNetBoilerplate$ dotnet watch run
 dotnet tool install --global dotnet-ef
 dotnet ef
 dotnet ef migrations add InitOrFixModel
