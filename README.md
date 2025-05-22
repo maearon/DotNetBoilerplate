@@ -1,6 +1,16 @@
-### .NET Implementation of Rails Tutorial Sample App
+### Vue + .NET Social App
 
 I'll create a .NET application that replicates the functionality of the Ruby on Rails tutorial sample app. Let's start by setting up the .NET project structure and implementing the core features.
+
+### Vue 3 Frontend
+```
+cd vue-boilerplate
+npm i
+npm run dev
+http://localhost:5173/
+```
+
+### .NET Backend
 
 IDE: https://visualstudio.microsoft.com/vs/community/
 
