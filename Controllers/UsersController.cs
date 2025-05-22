@@ -24,6 +24,7 @@ namespace DotNetBoilerplate.Controllers
         }
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = "Identity.Application")]
         public async Task<IActionResult> Index(int page = 1)
         {
             int pageSize = 10;
@@ -41,6 +42,7 @@ namespace DotNetBoilerplate.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Show(string id)
         {
             var user = await _userManager.FindByIdAsync(id);

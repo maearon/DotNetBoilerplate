@@ -1,9 +1,12 @@
 using DotNetBoilerplate.Data;
 using DotNetBoilerplate.Models;
 using DotNetBoilerplate.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,12 @@ builder.Services.AddRazorPages();
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Load JWT config
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+// var secretKey = jwtSettings["Key"];
+// var issuer = jwtSettings["Issuer"];
+// var audience = jwtSettings["Audience"];
 
 // Add Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
@@ -27,14 +36,40 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// Configure cookie policy
-builder.Services.ConfigureApplicationCookie(options => {
+// Configure authentication: Cookie + JWT
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddCookie(options =>
+{
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Logout";
     options.AccessDeniedPath = "/Account/AccessDenied";
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromDays(7);
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "SampleApp",
+        ValidAudience = "SampleAppUsers",
+        IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? throw new Exception("JWT key is missing"))) // 👉 YourSuperSecretKey12345678901234567890 in appsettings.json
+    };
 });
+
+// Can add other services here:
+// - EmailSender
+// - CORS
+// - Swagger
+// - Middleware: app.UseAuthentication(), app.UseAuthorization(), etc
 
 // Add email sender
 builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -44,7 +79,7 @@ builder.Services.AddAuthorization(options => {
     options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
 });
 
-// Add Swagger
+// Add Swagger (with JWT support)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -54,11 +89,10 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1"
     });
 
-    // Optional: Allow importing JWT tokens in Swagger UI
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
-        Description = "Enter token here? (no 'Bearer' required)",
+        Description = "Enter JWT token (no Bearer prefix needed)",
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
@@ -80,7 +114,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// Add CORS policy
+// Add CORS for frontend (optional)
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -94,14 +128,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "DotNetBoilerplate API V1");
-        c.RoutePrefix = "swagger"; // Go to /swagger
+        c.RoutePrefix = "swagger";
     });
 }
 else
@@ -117,7 +151,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
+app.UseAuthentication(); // 👈 JWT
 app.UseAuthorization();
 
 app.MapControllerRoute(

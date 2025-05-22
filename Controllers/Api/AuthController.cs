@@ -1,4 +1,6 @@
 using DotNetBoilerplate.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -62,6 +64,7 @@ namespace DotNetBoilerplate.Controllers.Api
         }
 
         [HttpDelete("logout")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

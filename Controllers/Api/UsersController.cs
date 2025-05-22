@@ -27,6 +27,7 @@ namespace DotNetBoilerplate.Controllers.Api
 
         // GET: api/users
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetUsers(int page = 1, int pageSize = 10)
         {
             var users = await _userManager.Users
