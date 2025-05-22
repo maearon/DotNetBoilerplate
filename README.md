@@ -5,6 +5,34 @@ I'll create a .NET application that replicates the functionality of the Ruby on 
 IDE: https://visualstudio.microsoft.com/vs/community/
 
 ```
+https://localhost:7217/swagger/index.html
+/
+localhost:7217   api/
+localhost:7217   swagger Auth/
+localhost:7217   |   swagger POST    login               (Login)
+localhost:7217   |   swagger POST    register            (Register)
+localhost:7217
+localhost:7217   swagger Microposts/
+localhost:7217   |   swagger GET     /                   (Get all microposts)
+localhost:7217   |   swagger POST    /                   (Create a new micropost)
+localhost:7217   |   swagger GET     /{id}               (Get micropost by ID)
+localhost:7217   |   swagger DELETE  /{id}               (Delete micropost by ID)
+localhost:7217
+localhost:7217   swagger Relationships/
+localhost:7217   |   swagger POST    /                   (Follow a user)
+localhost:7217   |   swagger DELETE  /{id}               (Unfollow a user)
+localhost:7217
+localhost:7217   swagger Users/
+localhost:7217   |   swagger GET     /                   (Get all users)
+localhost:7217   |   swagger GET     /{id}               (Get user by ID)
+localhost:7217   |   swagger GET     /{id}/microposts    (Get microposts by user)
+localhost:7217   |   swagger GET     /{id}/following     (Get users this user is following)
+localhost:7217   |   swagger GET     /{id}/followers     (Get this user's followers)
+localhost:7217   |   swagger GET     /me                 (??Get current authenticated user) ?
+
+```
+
+```
 dotnet tool install --global dotnet-ef
 dotnet ef
 dotnet ef migrations add InitOrFixModel
