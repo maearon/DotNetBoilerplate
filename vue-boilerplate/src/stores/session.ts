@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import API from "@/api"
 
 export interface User {
-  id: number
+  readonly id: string
   email: string
   name: string
   gravatar_hash?: string

@@ -10,7 +10,7 @@ export interface ListParams {
 
 export interface ListResponse<User> {
   users: User[]
-  total_count: number
+  totalUsers: number
 }
 
 export interface User {

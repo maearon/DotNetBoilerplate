@@ -27,7 +27,7 @@
             <router-link :to="`/users/${user.id}`">{{ user.name || user.displayName }}</router-link>
           </v-list-item-title>
           
-          <template v-slot:append v-if="sessionStore.user && sessionStore.user.role && sessionStore.user.id !== user.id">
+          <template v-slot:append v-if="sessionStore.user && sessionStore.user.admin && sessionStore.user.id !== user.id">
             <v-btn
               color="error"
               variant="text"
@@ -93,7 +93,7 @@ const fetchUsers = async () => {
   try {
     const response = await userApi.index({ page: page.value })
     users.value = response.users
-    totalCount.value = response.total_count
+    totalCount.value = response.totalUsers
   } catch (error) {
     console.error(error)
     toast.error('Failed to fetch users')
