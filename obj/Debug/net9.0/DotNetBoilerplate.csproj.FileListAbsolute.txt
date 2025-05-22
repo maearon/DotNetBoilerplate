@@ -299,3 +299,4 @@ C:\Users\manhn\code\DotNetBoilerplate\obj\Debug\net9.0\DotNetBo.09C8C4FA.Up2Date
 C:\Users\manhn\code\DotNetBoilerplate\obj\Debug\net9.0\DotNetBoilerplate.genruntimeconfig.cache
 C:\Users\manhn\code\DotNetBoilerplate\obj\Debug\net9.0\ref\DotNetBoilerplate.dll
 C:\Users\manhn\code\DotNetBoilerplate\bin\Debug\net9.0\dotnet-boilerplate-talend-api-test-file.json
+C:\Users\manhn\code\DotNetBoilerplate\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
