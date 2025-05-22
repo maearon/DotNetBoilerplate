@@ -38,9 +38,9 @@ API.interceptors.request.use(
 API.interceptors.response.use(
   (response: AxiosResponse) => response.data,
   (error) => {
-    // For 401 errors when accessing /sessions endpoint, don't reject the promise
+    // For 401 errors when accessing /Session/me endpoint, don't reject the promise
     // This prevents the error from propagating when checking auth status
-    if (error.response && error.response.status === 401 && error.config.url.includes("/sessions")) {
+    if (error.response && error.response.status === 401 && error.config.url.includes("/Session/me")) {
       console.log("Handling 401 error silently for auth check")
       // Return an empty successful response instead of rejecting
       return Promise.resolve({ user: null, loggedIn: false })

@@ -45,7 +45,7 @@
   
   const logout = async () => {
     try {
-      await api.delete('/logout')
+      await api.delete('/Auth/logout')
       sessionStore.logout()
       toast.success('Logged out successfully')
       router.push('/')

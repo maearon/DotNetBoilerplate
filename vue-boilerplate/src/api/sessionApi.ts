@@ -42,7 +42,7 @@ const sessionApi = {
   },
 
   destroy(): Promise<any> {
-    const url = '/logout';
+    const url = '/Auth/logout';
     return API.delete(url);
   },
 };

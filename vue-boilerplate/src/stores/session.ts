@@ -32,12 +32,12 @@ export const useSessionStore = defineStore("session", {
           return
         }
 
-        // Use the /sessions endpoint to check the current session
-        const response = await API.get("/sessions")
+        // Use the /Session/me endpoint to check the current session
+        const response = await API.get("/Session/me")
 
         // Check if the response has the user property
-        if (response && response.user) {
-          this.user = response.user
+        if (response && response) {
+          this.user = response
           this.loggedIn = true
           this.error = null
         } else {

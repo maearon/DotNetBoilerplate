@@ -61,6 +61,13 @@ namespace DotNetBoilerplate.Controllers.Api
             return BadRequest(new { message = "Invalid login attempt" });
         }
 
+        [HttpDelete("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok(new { message = "Logged out successfully" });
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto model)
         {
