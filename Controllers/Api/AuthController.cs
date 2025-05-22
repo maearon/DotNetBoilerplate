@@ -13,6 +13,7 @@ namespace DotNetBoilerplate.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -42,7 +43,7 @@ namespace DotNetBoilerplate.Controllers.Api
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 var token = await GenerateJwtToken(user);
-                
+
                 return Ok(new
                 {
                     Token = token,
@@ -54,12 +55,12 @@ namespace DotNetBoilerplate.Controllers.Api
                     }
                 });
             }
-            
+
             if (result.IsLockedOut)
             {
                 return BadRequest(new { message = "Account locked out" });
             }
-            
+
             return BadRequest(new { message = "Invalid login attempt" });
         }
 
@@ -90,15 +91,15 @@ namespace DotNetBoilerplate.Controllers.Api
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "User");
-                
+
                 // Automatically confirm email for API users
                 user.EmailConfirmed = true;
                 user.Activated = true;
                 user.ActivatedAt = DateTime.UtcNow;
                 await _userManager.UpdateAsync(user);
-                
+
                 var token = await GenerateJwtToken(user);
-                
+
                 return Ok(new
                 {
                     Token = token,
@@ -110,14 +111,14 @@ namespace DotNetBoilerplate.Controllers.Api
                     }
                 });
             }
-            
+
             return BadRequest(new { Errors = result.Errors });
         }
 
         private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);
-            
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
