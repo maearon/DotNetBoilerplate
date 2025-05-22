@@ -1,11 +1,11 @@
 import API from ".";
 
 export interface CreateParams {
-  followed_id: string | string[] | undefined
+  FollowedId: string | string[] | undefined
 }
 
 export interface CreateResponse {
-  follow: boolean
+  message: string
 }
 
 export interface DestroyResponse {

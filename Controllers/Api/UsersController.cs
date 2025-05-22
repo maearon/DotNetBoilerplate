@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using System.Security.Claims;
+using System.Text;
 
 namespace DotNetBoilerplate.Controllers.Api
 {
@@ -60,8 +62,35 @@ namespace DotNetBoilerplate.Controllers.Api
         }
 
         // GET: api/users/{id}
+        // [HttpGet("{id}")]
+        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        // public async Task<IActionResult> GetUser(string id)
+        // {
+        //     var user = await _userManager.FindByIdAsync(id);
+        //     if (user == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     var micropostsCount = await _context.Microposts.CountAsync(m => m.UserId == id);
+        //     var followingCount = await _context.Relationships.CountAsync(r => r.FollowerId == id);
+        //     var followersCount = await _context.Relationships.CountAsync(r => r.FollowedId == id);
+
+        //     return Ok(new
+        //     {
+        //         user.Id,
+        //         user.Name,
+        //         user.Email,
+        //         user.CreatedAt,
+        //         user.UpdatedAt,
+        //         MicropostsCount = micropostsCount,
+        //         FollowingCount = followingCount,
+        //         FollowersCount = followersCount
+        //     });
+        // }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(string id)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetUser(string id, int page = 1, int pageSize = 10)
         {
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
@@ -69,21 +98,76 @@ namespace DotNetBoilerplate.Controllers.Api
                 return NotFound();
             }
 
-            var micropostsCount = await _context.Microposts.CountAsync(m => m.UserId == id);
+            var microposts = await _context.Microposts
+                .Where(m => m.UserId == id)
+                .OrderByDescending(m => m.CreatedAt)
+                .Skip((page - 1) * pageSize)
+                .ToListAsync();
+
+            var micropostsCount = microposts.Count;
             var followingCount = await _context.Relationships.CountAsync(r => r.FollowerId == id);
             var followersCount = await _context.Relationships.CountAsync(r => r.FollowedId == id);
 
-            return Ok(new
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var isFollowing = false;
+            if (currentUserId != null)
             {
-                user.Id,
-                user.Name,
-                user.Email,
-                user.CreatedAt,
-                user.UpdatedAt,
-                MicropostsCount = micropostsCount,
-                FollowingCount = followingCount,
-                FollowersCount = followersCount
-            });
+                isFollowing = await _context.Relationships
+                    .AnyAsync(r => r.FollowerId == currentUserId && r.FollowedId == id);
+            }
+
+            var userJson = new
+            {
+                user = new
+                {
+                    id = user.Id,
+                    name = user.Name,
+                    email = user.Email,
+                    gravatar_id = GetMd5Hash(user.Email.ToLower()),
+                    size = 50,
+                    following = followingCount,
+                    followers = followersCount,
+                    current_user_following_user = isFollowing
+                },
+                microposts = microposts.Select(i => new
+                {
+                    id = i.Id,
+                    user_name = user.Name,
+                    user_id = i.UserId,
+                    gravatar_id = GetMd5Hash(user.Email.ToLower()),
+                    size = 50,
+                    content = i.Content,
+                    image = i.ImagePath != null 
+                        ? $"{Request.Scheme}://{Request.Host}{i.ImagePath}" 
+                        : null,
+                    timestamp = TimeAgo(i.CreatedAt)
+                }),
+                total_count = micropostsCount
+            };
+
+            return Ok(userJson);
+        }
+
+        private static string GetMd5Hash(string input)
+        {
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                var inputBytes = Encoding.ASCII.GetBytes(input);
+                var hashBytes = md5.ComputeHash(inputBytes);
+                return string.Concat(hashBytes.Select(b => b.ToString("x2")));
+            }
+        }
+
+        // Optional: time_ago like Rails
+        private static string TimeAgo(DateTime dt)
+        {
+            var span = DateTime.UtcNow - dt;
+            if (span.TotalMinutes < 1) return "just now";
+            if (span.TotalMinutes < 60) return $"{(int)span.TotalMinutes} minutes ago";
+            if (span.TotalHours < 24) return $"{(int)span.TotalHours} hours ago";
+            if (span.TotalDays < 30) return $"{(int)span.TotalDays} days ago";
+            if (span.TotalDays < 365) return $"{(int)(span.TotalDays / 30)} months ago";
+            return $"{(int)(span.TotalDays / 365)} years ago";
         }
 
         // GET: api/users/{id}/microposts
