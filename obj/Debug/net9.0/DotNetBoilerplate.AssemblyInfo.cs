@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DotNetBoilerplate")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+909324b5e8c882a6a3fd8458e24f820d8778c91f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1a5316f69b6f285ea4ee543ab25b9edf0a19862")]
 [assembly: System.Reflection.AssemblyProductAttribute("DotNetBoilerplate")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DotNetBoilerplate")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
