@@ -203,6 +203,9 @@ namespace DotNetBoilerplate.Controllers.Api
 
             var totalMicroposts = await _context.Microposts.CountAsync(m => m.UserId == id);
             var totalPages = (int)Math.Ceiling(totalMicroposts / (double)pageSize);
+            // var micropostsCount = microposts.Count;
+            // var followingCount = await _context.Relationships.CountAsync(r => r.FollowerId == id);
+            // var followersCount = await _context.Relationships.CountAsync(r => r.FollowedId == id);
 
             return Ok(new
             {
@@ -215,6 +218,7 @@ namespace DotNetBoilerplate.Controllers.Api
 
         // GET: api/users/{id}/following
         [HttpGet("{id}/following")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetUserFollowing(string id, int page = 1, int pageSize = 10)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -230,7 +234,7 @@ namespace DotNetBoilerplate.Controllers.Api
                 .Take(pageSize)
                 .ToListAsync();
 
-            var following = await _userManager.Users
+            var users = await _userManager.Users
                 .Where(u => followingIds.Contains(u.Id))
                 .Select(u => new
                 {
@@ -241,14 +245,30 @@ namespace DotNetBoilerplate.Controllers.Api
                     u.UpdatedAt
                 })
                 .ToListAsync();
+            var microposts = await _context.Microposts
+                .Where(m => m.UserId == id)
+                .OrderByDescending(m => m.CreatedAt)
+                // .Skip((page - 1) * pageSize)
+                .ToListAsync();
 
-            var totalFollowing = await _context.Relationships.CountAsync(r => r.FollowerId == id);
-            var totalPages = (int)Math.Ceiling(totalFollowing / (double)pageSize);
+            var micropost = microposts.Count;
+            var following = await _context.Relationships.CountAsync(r => r.FollowerId == id);
+            var followers = await _context.Relationships.CountAsync(r => r.FollowedId == id);
+            var totalPages = (int)Math.Ceiling(following / (double)pageSize);
 
             return Ok(new
             {
-                Following = following,
-                TotalFollowing = totalFollowing,
+                users,
+                total_count = following,
+                user = new
+                    {
+                        user.Id,
+                        user.Name,
+                        user.Email,
+                        following,
+                        followers,
+                        micropost
+                    },
                 TotalPages = totalPages,
                 CurrentPage = page
             });
@@ -256,6 +276,7 @@ namespace DotNetBoilerplate.Controllers.Api
 
         // GET: api/users/{id}/followers
         [HttpGet("{id}/followers")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetUserFollowers(string id, int page = 1, int pageSize = 10)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -271,7 +292,7 @@ namespace DotNetBoilerplate.Controllers.Api
                 .Take(pageSize)
                 .ToListAsync();
 
-            var followers = await _userManager.Users
+            var users = await _userManager.Users
                 .Where(u => followerIds.Contains(u.Id))
                 .Select(u => new
                 {
@@ -282,14 +303,31 @@ namespace DotNetBoilerplate.Controllers.Api
                     u.UpdatedAt
                 })
                 .ToListAsync();
+            var microposts = await _context.Microposts
+                .Where(m => m.UserId == id)
+                .OrderByDescending(m => m.CreatedAt)
+                // .Skip((page - 1) * pageSize)
+                .ToListAsync();
 
-            var totalFollowers = await _context.Relationships.CountAsync(r => r.FollowedId == id);
-            var totalPages = (int)Math.Ceiling(totalFollowers / (double)pageSize);
+            var micropost = microposts.Count;
+            var following = await _context.Relationships.CountAsync(r => r.FollowerId == id);
+            var followers = await _context.Relationships.CountAsync(r => r.FollowedId == id);
+            var totalPages = (int)Math.Ceiling(followers / (double)pageSize);
+            
 
             return Ok(new
             {
-                Followers = followers,
-                TotalFollowers = totalFollowers,
+                users,
+                total_count = followers,
+                user = new
+                    {
+                        user.Id,
+                        user.Name,
+                        user.Email,
+                        following,
+                        followers,
+                        micropost
+                    },
                 TotalPages = totalPages,
                 CurrentPage = page
             });

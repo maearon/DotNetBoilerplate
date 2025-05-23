@@ -20,7 +20,7 @@
                   <h3 class="text-h4">{{ user.name }}</h3>
                 </div>
               </div>
-              <div>{{ user.current_user_following_user }} micropost{{ totalCount !== 1 ? 's' : '' }}</div>
+              <div>{{ totalCount }} micropost{{ totalCount > 1 ? 's' : '' }}</div>
             </v-card-text>
           </v-card>
 

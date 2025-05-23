@@ -5,7 +5,7 @@ export interface User {
   readonly id: string
   email: string
   name: string
-  gravatar_hash?: string
+  gravatar_id?: string
   admin?: boolean
   activated?: boolean
   // Add other user properties as needed

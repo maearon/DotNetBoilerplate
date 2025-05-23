@@ -4,12 +4,12 @@
       <div class="text-center mb-6">
         <v-avatar size="100" class="mb-3">
           <v-img
-            :src="`https://secure.gravatar.com/avatar/${sessionUser.gravatar}?s=100`"
+            :src="`https://secure.gravatar.com/avatar/${sessionUser.gravatar_id}?s=100`"
             :alt="sessionUser.name"
           />
         </v-avatar>
         <h1 class="text-h4">{{ sessionUser.name }}</h1>
-        <div>{{ totalCountMicropost }} micropost{{ totalCountMicropost !== 1 ? 's' : '' }}</div>
+        <div>{{ totalCountMicropost }} micropost{{ totalCountMicropost > 1 ? 's' : '' }}</div>
       </div>
   
       <!-- Tabs -->
@@ -60,6 +60,7 @@
   
   <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { useSessionStore } from '../stores/session'
 import userApi, { UserFollow } from '../api/userApi'
@@ -69,6 +70,7 @@ const props = defineProps<{
   type: 'following' | 'followers'
 }>()
 
+const route = useRoute()
 const toast = useToast()
 const session = useSessionStore()
 
@@ -78,13 +80,20 @@ const page = ref(1)
 const users = ref<UserFollow[]>([])
 const totalCount = ref(0)
 const totalCountMicropost = ref(0)
+const userId = ref<string>('')
 
 const sessionUser = computed(() => session.user)
+
+onMounted(() => {
+  console.log('[onMounted] route id:', route.params.id)
+  userId.value = route.params.id as string
+  fetchData()
+})
 
 const fetchData = async () => {
   loadingFollowers.value = true
   try {
-    const response = await userApi.follow(props.userId, page.value, props.type)
+    const response = await userApi.follow(userId.value, page.value, props.type)
     users.value = response.users
     totalCount.value = response.total_count
     totalCountMicropost.value = response.user.micropost
@@ -96,7 +105,7 @@ const fetchData = async () => {
   }
 }
 
-onMounted(fetchData)
+// onMounted(fetchData)
 
 watch(() => page.value, fetchData)
 
