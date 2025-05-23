@@ -22,6 +22,9 @@ localhost:7217   swagger Auth/
 localhost:7217   |   swagger POST    login               (Login)
 localhost:7217   |   swagger POST    register            (Register)
 localhost:7217
+localhost:7217   swagger Feed/
+localhost:7217   |   swagger GET     /                   (Get news feed)
+localhost:7217
 localhost:7217   swagger Microposts/
 localhost:7217   |   swagger GET     /                   (Get all microposts)
 localhost:7217   |   swagger POST    /                   (Create a new micropost)
@@ -35,6 +38,8 @@ localhost:7217
 localhost:7217   swagger Users/
 localhost:7217   |   swagger GET     /                   (Get all users)
 localhost:7217   |   swagger GET     /{id}               (Get user by ID)
+localhost:7217   |   swagger GET     /{id}/edit          (Get user by ID for edit)
+localhost:7217   |   swagger POST    /microposts         (Create microposts by current user)
 localhost:7217   |   swagger GET     /{id}/microposts    (Get microposts by user)
 localhost:7217   |   swagger GET     /{id}/following     (Get users this user is following)
 localhost:7217   |   swagger GET     /{id}/followers     (Get this user's followers)
