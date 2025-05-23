@@ -115,6 +115,11 @@ dotnet ef database update
 
 [[[[[[[[[dotnet watch run --launch-profile https]]]]]]]]]
 [[[[[[[[[docker rm sqlserver]]]]]]]]] (run docker and ef again if need)
+[[[[[[[[[Visual Studio - Clean Solution]]]]]]]]]
+[[[[[[[[[Visual Studio - Rebuild Solution]]]]]]]]]
+[[[[[[[[[Visual Studio - Build]]]]]]]]]
+[[[[[[[[[Visual Studio - F5]]]]]]]]]
+[[[[[[[[[cd vue-boilerplate - npm run dev]]]]]]]]]
 
 PS C:\Users\manhn\code\DotNetBoilerplate> dotnet --list-sdks
 9.0.300 [C:\Program Files\dotnet\sdk]
