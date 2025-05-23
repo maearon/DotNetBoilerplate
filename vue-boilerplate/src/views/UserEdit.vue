@@ -126,11 +126,19 @@ const sessionStore = useSessionStore()
 const fetchUserData = async () => {
   loading.value = true
   try {
-    if (sessionStore.sessionUser?.id === userId) {
-      // Dùng local user từ Pinia nếu là chính mình
-      const data = sessionStore.sessionUser
+    if (sessionStore.currentUser.id === userId) {
+      // Use local user from Pinia if it's yourself
+      const data = sessionStore.currentUser
       user.value = { name: data.name, email: data.email }
-      gravatar.value = data.gravatar_hash || ''
+      gravatar.value = data.gravatar || ''
+      // import { Md5 } from 'ts-md5';
+
+// export function gravatarUrl(email?: string, size = 80): string {
+//   const safeEmail = email?.trim().toLowerCase() || 'test@example.com';
+//   const hash = Md5.hashStr(safeEmail);
+//   return `https://secure.gravatar.com/avatar/${hash}?s=${size}`;
+// }
+
       formData.value.name = data.name
       formData.value.email = data.email
     } else {
@@ -158,9 +166,9 @@ const handleSubmit = async () => {
     // Gọi API update user
     const response = await userApi.update(userId, formData.value)
 
-    if (response.flash) {
+    if (response.message) {
       // Nếu có thông báo thành công
-      toast.success(response.flash[1])
+      toast.success(response.message)
       
       // Cập nhật avatar nếu có avatar từ hệ thống uploadThing
       // if (response.avatarUrl) {

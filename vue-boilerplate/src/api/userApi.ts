@@ -72,7 +72,11 @@ export interface EditResponse {
 }
 
 export interface UpdateParams {
-  user: UpdateField
+  // user: UpdateField
+  name: string
+  email: string
+  password: string
+  password_confirmation: string
 }
 
 export interface UpdateField {
@@ -85,6 +89,7 @@ export interface UpdateField {
 export interface UpdateResponse {
   flash_success?: [message_type: string, message: string]
   error?: string[]
+  message: string
 }
 
 export interface Response {

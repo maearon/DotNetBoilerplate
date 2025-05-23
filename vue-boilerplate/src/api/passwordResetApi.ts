@@ -16,6 +16,7 @@ export interface UpdateResponse {
   user_id?: string
   flash?: [message_type: string, message: string]
   error?: string[]
+  message: string
 }
 
 export interface UpdateParams {

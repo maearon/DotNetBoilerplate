@@ -5,14 +5,14 @@
       "entity": {
         "type": "Project",
         "description": "https://app.swaggerhub.com/apis-docs/Kakeishindan/Manenoba/1.0.0",
-        "id": "639a0487-8668-434e-85d5-6cb32170951e",
+        "id": "cd5d4c7e-365a-48ec-8b49-aa5aa70038e2",
         "name": "maearon"
       },
       "children": [
         {
           "entity": {
             "type": "Service",
-            "id": "37831a57-2bc6-45f3-b53c-c2e0121ee8eb",
+            "id": "4f7c0380-fcf2-4a01-a841-fb20cdbea362",
             "name": "auth"
           },
           "children": [
@@ -46,7 +46,7 @@
                   "host": "ruby-rails-boilerplate-3s9t.onrender.com",
                   "path": "/graphql"
                 },
-                "id": "f88b0035-7d54-44b8-af09-4f5944b45eb4",
+                "id": "d8414763-425a-4221-b992-f37b715a1ef3",
                 "name": "GraphQL"
               }
             },
@@ -79,7 +79,7 @@
                   "host": "localhost:3000",
                   "path": "/api/v1/auth/forgot-password"
                 },
-                "id": "d0eb0436-e36c-4c64-85db-4d76a916a09d",
+                "id": "a0b87efe-c13c-4692-b9c6-452e07f9dc23",
                 "name": "forgot password - failure",
                 "headers": [
                   {
@@ -119,7 +119,7 @@
                   "host": "localhost:7217",
                   "path": "/api/Session/me"
                 },
-                "id": "85cf7d41-a6a5-4597-b5fb-b5a615af3186",
+                "id": "7f1604ca-6c14-4ff1-a049-e1fb795562df",
                 "name": "get session",
                 "headers": [
                   {
@@ -160,7 +160,7 @@
                   "host": "localhost:7217",
                   "path": "/api/auth/login"
                 },
-                "id": "be3cb443-8453-402d-9baa-b6944b1f2863",
+                "id": "c9edd676-5ca4-4c1c-aa3f-cae00d2b08fa",
                 "name": "login",
                 "headers": [
                   {
@@ -198,7 +198,7 @@
                   "host": "localhost:8080",
                   "path": "/api/logout"
                 },
-                "id": "382807d9-63a0-4296-93e8-84111417082c",
+                "id": "743e8f82-e752-41fe-b048-0b44627f4f7d",
                 "name": "logout",
                 "headers": [
                   {
@@ -238,7 +238,7 @@
                   "host": "localhost:8080",
                   "path": "/api/v1/auth/revoke"
                 },
-                "id": "1cda6810-999d-4fd2-bed9-035bad649fbf",
+                "id": "58dea434-6e22-45f5-b9f6-5734db59587a",
                 "name": "logout - failure",
                 "headers": [
                   {
@@ -278,7 +278,7 @@
                   "host": "localhost:3000",
                   "path": "/api/v1/auth/refresh-tokens"
                 },
-                "id": "0f604614-ef14-4f46-ba9c-6e2e013d5a4e",
+                "id": "e261d152-f17a-43d7-aab8-c5540ccdd5ab",
                 "name": "refresh auth tokens - failure",
                 "headers": [
                   {
@@ -319,7 +319,7 @@
                   "host": "localhost:7217",
                   "path": "/api/auth/register"
                 },
-                "id": "180d0acc-2e02-45c3-b106-bbaba3f47768",
+                "id": "b500abb0-de29-4494-aeb7-aef9dd912a49",
                 "name": "register",
                 "headers": [
                   {
@@ -359,7 +359,7 @@
                   "host": "localhost:3000",
                   "path": "/api/v1/auth/reset-password"
                 },
-                "id": "28b99784-dd9e-4692-8260-4705d292e4f6",
+                "id": "6e94599b-60af-4c9e-a8d8-b249a64e7420",
                 "name": "reset password - failure",
                 "headers": [
                   {
@@ -399,7 +399,7 @@
                   "host": "localhost:3000",
                   "path": "/api/v1/users/send-verification-email"
                 },
-                "id": "531edc9e-061a-4068-997a-8d8031397b20",
+                "id": "a6984b84-a99d-472d-bee7-bab7d1d64810",
                 "name": "send_verification_email",
                 "headers": [
                   {
@@ -449,7 +449,7 @@
                   "host": "localhost:3000",
                   "path": "/api/v1/account_activations/10/edit"
                 },
-                "id": "3d59a634-1d6b-4022-bdab-e6c223ec94ea",
+                "id": "3fc1723a-9cb4-4614-9abb-b1e7fcca2241",
                 "name": "verify email - failure",
                 "headers": [
                   {
@@ -470,7 +470,7 @@
         {
           "entity": {
             "type": "Service",
-            "id": "7aaac35e-b385-441a-9e00-305fd31bb971",
+            "id": "b582e701-8561-48b5-8ea4-9a7369654ddf",
             "name": "feed"
           },
           "children": [
@@ -507,7 +507,7 @@
                   "host": "localhost:8080",
                   "path": "/api"
                 },
-                "id": "336e4151-10ff-40dc-8f4b-f69da70372b8",
+                "id": "894fb33d-22af-4e38-9de8-9acd737f8a04",
                 "name": "feed",
                 "headers": [
                   {
@@ -548,7 +548,7 @@
                   "host": "localhost:7217",
                   "path": "/api/relationships"
                 },
-                "id": "5ca8bcba-3c6f-4e48-b8d1-55d89aee3dd3",
+                "id": "ebc720ef-b3d8-46f2-ac2e-da08fa3d23fb",
                 "name": "follow",
                 "headers": [
                   {
@@ -587,7 +587,7 @@
                   "host": "localhost:7217",
                   "path": "/api/relationships/de54ed05-df8d-469f-a6c2-a136bae1a3e2"
                 },
-                "id": "de5de522-5d75-41a4-8df5-65ee532ab440",
+                "id": "d36e5b6b-fffb-4b72-962a-11126b97b901",
                 "name": "unfollow",
                 "headers": [
                   {
@@ -603,7 +603,7 @@
         {
           "entity": {
             "type": "Service",
-            "id": "05089323-7c9c-4fa7-9c3a-aeb70955f882",
+            "id": "0a8c6142-df3c-4cfe-bf39-ed27e4d084a3",
             "name": "micropost"
           },
           "children": [
@@ -642,7 +642,7 @@
                   "host": "localhost:8080",
                   "path": "/api/microposts"
                 },
-                "id": "b133450e-1b12-442b-b70b-7960653b2e8c",
+                "id": "91daece7-e04f-4910-8a3a-c924b88be989",
                 "name": "create",
                 "headers": [
                   {
@@ -685,7 +685,7 @@
                   "host": "localhost:8080",
                   "path": "/api/microposts/51"
                 },
-                "id": "b49a6d3e-fa2c-4954-92d0-6bfc25a1d20b",
+                "id": "88c8a411-252b-433e-a32c-abf0d74932c4",
                 "name": "delete",
                 "headers": [
                   {
@@ -701,7 +701,7 @@
         {
           "entity": {
             "type": "Service",
-            "id": "3321e972-1dd1-41f7-8a03-8d5e092e1f83",
+            "id": "33272fe9-65fe-4995-ab3b-8decc29bb958",
             "name": "user"
           },
           "children": [
@@ -732,13 +732,14 @@
                     ]
                   },
                   "scheme": {
-                    "name": "http",
+                    "secure": true,
+                    "name": "https",
                     "version": "V11"
                   },
-                  "host": "localhost:8080",
-                  "path": "/api/users/2/followers"
+                  "host": "localhost:7217",
+                  "path": "/api/users/e2becdda-abba-404f-a5ff-508eeffde3fa/followers"
                 },
-                "id": "3b34b64a-156a-4c8c-95cb-536a615d0427",
+                "id": "1a4e278e-9dc1-42b9-a2ff-8a18b0e73935",
                 "name": "followers",
                 "headers": [
                   {
@@ -776,13 +777,14 @@
                     ]
                   },
                   "scheme": {
-                    "name": "http",
+                    "secure": true,
+                    "name": "https",
                     "version": "V11"
                   },
-                  "host": "localhost:8080",
-                  "path": "/api/users/2/following"
+                  "host": "localhost:7217",
+                  "path": "/api/users/e2becdda-abba-404f-a5ff-508eeffde3fa/following"
                 },
-                "id": "5b462a60-70d5-4c41-b9ee-3d0ad6204fd7",
+                "id": "74df2df2-f8a4-420d-87a2-9043e4601f7b",
                 "name": "following",
                 "headers": [
                   {
@@ -823,7 +825,7 @@
                   "host": "${port}",
                   "path": "/api/Users"
                 },
-                "id": "ee1b19dd-79de-4b10-8427-7308227e682b",
+                "id": "77a6d9f2-77ef-4194-adf5-5226a49dc05b",
                 "name": "get all users",
                 "headers": [
                   {
@@ -867,10 +869,49 @@
                     "version": "V11"
                   },
                   "host": "localhost:7217",
-                  "path": "/api/users/de54ed05-df8d-469f-a6c2-a136bae1a3e2"
+                  "path": "/api/users/e1386cbb-8ca6-4609-afb6-a1697591513d"
                 },
-                "id": "f3768616-50d6-4689-b14b-147a1282abcf",
+                "id": "709bef4c-b1d8-47a1-95c4-ade9f2726876",
                 "name": "get user",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Bearer ${token}"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "secure": true,
+                    "name": "https",
+                    "version": "V11"
+                  },
+                  "host": "localhost:7217",
+                  "path": "/api/users/e1386cbb-8ca6-4609-afb6-a1697591513/edit"
+                },
+                "id": "e538a333-71eb-4431-8117-43e01cff9d45",
+                "name": "get user edit",
                 "headers": [
                   {
                     "enabled": true,
@@ -895,7 +936,7 @@
                     "items": []
                   },
                   "bodyType": "Text",
-                  "textBody": "{\n    \"user\": {\n        \"name\": \"Mark Mowatt\",\n        \"email\": \"manhng132@gmail.com\",\n        \"password\": \"Aa123456789@*\",\n        \"password_confirmation\": \"Aa123456789@*\"\n    }\n}"
+                  "textBody": "{\"name\":\"Test User\",\"email\":\"test@example.com\",\"password\":\"Abcd1234!\",\"password_confirmation\":\"Abcd1234!\"}"
                 },
                 "uri": {
                   "query": {
@@ -903,13 +944,14 @@
                     "items": []
                   },
                   "scheme": {
-                    "name": "http",
+                    "secure": true,
+                    "name": "https",
                     "version": "V11"
                   },
-                  "host": "localhost:3000",
-                  "path": "/api/v1/users/${id}"
+                  "host": "localhost:7217",
+                  "path": "/api/users/${id}"
                 },
-                "id": "b1782fb8-6bbe-44e9-89ee-6b270d4eef9e",
+                "id": "623138b8-7a62-4e5e-83f9-b6dabb92d8c1",
                 "name": "update a user",
                 "headers": [
                   {
@@ -932,53 +974,53 @@
   ],
   "environments": [
     {
-      "id": "a11dd334-9724-4ce4-8de1-7d2052f9b819",
+      "id": "b673c198-cc7b-4af2-a9eb-1aa84fe1119a",
       "name": "token",
       "variables": {
-        "c3c10b74-c5d0-42f2-989a-e14f95f45e13": {
-          "createdAt": "2025-05-22T12:38:35.897+07:00",
+        "dd196ae4-3c66-45fb-857a-21dbb30078d0": {
+          "createdAt": "2025-05-23T08:15:19.308+07:00",
           "name": "token",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNlNGRkODAzLTYyNzktNGJiNy1hZDk4LTRjY2IzYmUxMThmNSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoidGVzdEBleGFtcGxlLmNvbSIsImp0aSI6IjIzMTU4MDAzLTkzMWUtNDRmMS1iNzYwLTllNTkwMzc3ZTY0YyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NDg1MDIyNzMsImlzcyI6IlNhbXBsZUFwcCIsImF1ZCI6IlNhbXBsZUFwcFVzZXJzIn0.9goAYTE2epNkGSaKv9ELRqKhE4GmpW37R8d7DAeUEm8",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImUxMzg2Y2JiLThjYTYtNDYwOS1hZmI2LWExNjk3NTkxNTEzZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoidGVzdEBleGFtcGxlLmNvbSIsImp0aSI6ImMzMDAwMjRjLWM1MWQtNDY3ZC05NWViLTZmODZlMGNmOWRiOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NDg1Njc3NTQsImlzcyI6IlNhbXBsZUFwcCIsImF1ZCI6IlNhbXBsZUFwcFVzZXJzIn0.7GchLrTLpncbY-cdX4Le4m9YPFYk9KNb_Tgt3GdRtMo",
           "enabled": true,
           "private": false
         },
-        "54924994-05eb-49dc-9e78-df578bf2ad4f": {
-          "createdAt": "2025-05-22T12:38:35.897+07:00",
+        "019cd359-7675-4606-aeb6-73221b37c3cd": {
+          "createdAt": "2025-05-23T08:15:19.308+07:00",
           "name": "id",
-          "value": "nlnhmwy63wdh4uzp",
+          "value": "e1386cbb-8ca6-4609-afb6-a1697591513d",
           "enabled": true,
           "private": false
         },
-        "05ea08ab-6ed0-4cfa-a972-33b26f433ecb": {
-          "createdAt": "2025-05-22T12:38:35.897+07:00",
+        "870a233c-7324-483c-a741-c877f880ecd7": {
+          "createdAt": "2025-05-23T08:15:19.308+07:00",
           "name": "refresh",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNlNGRkODAzLTYyNzktNGJiNy1hZDk4LTRjY2IzYmUxMThmNSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoidGVzdEBleGFtcGxlLmNvbSIsImp0aSI6IjIzMTU4MDAzLTkzMWUtNDRmMS1iNzYwLTllNTkwMzc3ZTY0YyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NDg1MDIyNzMsImlzcyI6IlNhbXBsZUFwcCIsImF1ZCI6IlNhbXBsZUFwcFVzZXJzIn0.9goAYTE2epNkGSaKv9ELRqKhE4GmpW37R8d7DAeUEm8",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImUxMzg2Y2JiLThjYTYtNDYwOS1hZmI2LWExNjk3NTkxNTEzZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoidGVzdEBleGFtcGxlLmNvbSIsImp0aSI6ImMzMDAwMjRjLWM1MWQtNDY3ZC05NWViLTZmODZlMGNmOWRiOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NDg1Njc3NTQsImlzcyI6IlNhbXBsZUFwcCIsImF1ZCI6IlNhbXBsZUFwcFVzZXJzIn0.7GchLrTLpncbY-cdX4Le4m9YPFYk9KNb_Tgt3GdRtMo",
           "enabled": true,
           "private": false
         },
-        "63b0acfe-24ea-4a8b-93a0-48afe1e96c48": {
-          "createdAt": "2025-05-22T12:38:35.897+07:00",
+        "b685c449-7d0d-481f-8b54-44e774508871": {
+          "createdAt": "2025-05-23T08:15:19.308+07:00",
           "name": "",
           "value": "",
           "enabled": true,
           "private": false
         },
-        "a37e5601-1abe-4dbc-8548-abb2c4a1bfa0": {
-          "createdAt": "2025-05-22T12:38:35.897+07:00",
+        "3146a879-4fa1-4f80-b762-460dab50acb8": {
+          "createdAt": "2025-05-23T08:15:19.308+07:00",
           "name": "idd",
           "value": "00cffeed-248f-4fc5-92ff-b99ebbad7e8d",
           "enabled": true,
           "private": false
         },
-        "fe580dc1-58c1-401f-aece-10dfd58aec02": {
-          "createdAt": "2025-05-22T13:31:27.555+07:00",
+        "741c7691-bf0f-4488-b62a-b5f3ab7e6f3c": {
+          "createdAt": "2025-05-23T08:15:19.308+07:00",
           "name": "",
           "value": "",
           "enabled": true,
           "private": false
         },
-        "2f572e89-1da8-425a-bbeb-fc252ad7e21a": {
-          "createdAt": "2025-05-22T13:31:27.555+07:00",
+        "e1700708-704f-42dc-bcab-fca636f08b31": {
+          "createdAt": "2025-05-23T08:15:19.308+07:00",
           "name": "port",
           "value": "https://localhost:7217",
           "enabled": true,

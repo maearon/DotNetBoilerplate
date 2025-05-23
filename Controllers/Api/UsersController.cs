@@ -1,4 +1,4 @@
-using DotNetBoilerplate.Data;
+﻿using DotNetBoilerplate.Data;
 using DotNetBoilerplate.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Security.Claims;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace DotNetBoilerplate.Controllers.Api
 {
@@ -61,6 +62,75 @@ namespace DotNetBoilerplate.Controllers.Api
             });
         }
 
+        // PATCH: api/users/{id}
+        [HttpPatch("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] UpdateUserDto model)
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (currentUserId != id)
+            {
+                return Forbid(); // Chỉ cho phép người dùng tự cập nhật chính họ
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Cập nhật tên và email nếu có
+            if (!string.IsNullOrWhiteSpace(model.name))
+            {
+                user.Name = model.name;
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.email) && model.email != user.Email)
+            {
+                var existingUser = await _userManager.FindByEmailAsync(model.email);
+                if (existingUser != null && existingUser.Id != user.Id)
+                {
+                    return BadRequest(new { error = "Email đã được sử dụng." });
+                }
+
+                user.Email = model.email;
+                user.UserName = model.email; // Nếu bạn dùng email làm username
+            }
+
+            // Cập nhật mật khẩu nếu có và xác nhận đúng
+            if (!string.IsNullOrWhiteSpace(model.password))
+            {
+                if (model.password != model.password_confirmation)
+                {
+                    return BadRequest(new { error = "Mật khẩu xác nhận không khớp." });
+                }
+
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var passwordResult = await _userManager.ResetPasswordAsync(user, token, model.password);
+                if (!passwordResult.Succeeded)
+                {
+                    return BadRequest(new { error = passwordResult.Errors.Select(e => e.Description) });
+                }
+            }
+
+            user.UpdatedAt = DateTime.UtcNow;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { error = result.Errors.Select(e => e.Description) });
+            }
+
+            return Ok(new
+            {
+                user.Id,
+                user.Name,
+                user.Email,
+                message = "Cập nhật thành công."
+            });
+        }
+
         // GET: api/users/{id}
         // [HttpGet("{id}")]
         // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -88,6 +158,28 @@ namespace DotNetBoilerplate.Controllers.Api
         //         FollowersCount = followersCount
         //     });
         // }
+        [HttpGet("{id}/edit")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetUserEdit()
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(currentUserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var gravatarId = GetMd5Hash(user.Email.ToLower());
+            return Ok(new
+            {
+                user = new
+                {
+                    user.Id,
+                    user.Name,
+                    user.Email,
+                },
+                gravatar = $"https://secure.gravatar.com/avatar/{gravatarId}?s=80"
+            });
+        }
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetUser(string id, int page = 1, int pageSize = 10)
@@ -137,8 +229,8 @@ namespace DotNetBoilerplate.Controllers.Api
                     gravatar_id = GetMd5Hash(user.Email.ToLower()),
                     size = 50,
                     content = i.Content,
-                    image = i.ImagePath != null 
-                        ? $"{Request.Scheme}://{Request.Host}{i.ImagePath}" 
+                    image = i.ImagePath != null
+                        ? $"{Request.Scheme}://{Request.Host}{i.ImagePath}"
                         : null,
                     timestamp = TimeAgo(i.CreatedAt)
                 }),
@@ -261,14 +353,14 @@ namespace DotNetBoilerplate.Controllers.Api
                 users,
                 total_count = following,
                 user = new
-                    {
-                        user.Id,
-                        user.Name,
-                        user.Email,
-                        following,
-                        followers,
-                        micropost
-                    },
+                {
+                    user.Id,
+                    user.Name,
+                    user.Email,
+                    following,
+                    followers,
+                    micropost
+                },
                 TotalPages = totalPages,
                 CurrentPage = page
             });
@@ -313,24 +405,42 @@ namespace DotNetBoilerplate.Controllers.Api
             var following = await _context.Relationships.CountAsync(r => r.FollowerId == id);
             var followers = await _context.Relationships.CountAsync(r => r.FollowedId == id);
             var totalPages = (int)Math.Ceiling(followers / (double)pageSize);
-            
+
 
             return Ok(new
             {
                 users,
                 total_count = followers,
                 user = new
-                    {
-                        user.Id,
-                        user.Name,
-                        user.Email,
-                        following,
-                        followers,
-                        micropost
-                    },
+                {
+                    user.Id,
+                    user.Name,
+                    user.Email,
+                    following,
+                    followers,
+                    micropost
+                },
                 TotalPages = totalPages,
                 CurrentPage = page
             });
+        }
+        
+        public class UpdateUserDto
+        {
+            [Required]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
+            public string name { get; set; } = string.Empty;
+
+            [Required]
+            [EmailAddress]
+            public string email { get; set; } = string.Empty;
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            public string password { get; set; } = string.Empty;
+
+            [Compare("password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string password_confirmation { get; set; } = string.Empty;
         }
     }
 }

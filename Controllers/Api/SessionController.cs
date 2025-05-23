@@ -1,9 +1,10 @@
 ﻿using DotNetBoilerplate.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text;
 
 namespace DotNetBoilerplate.Controllers.Api
 {
@@ -35,14 +36,25 @@ namespace DotNetBoilerplate.Controllers.Api
             {
                 return NotFound(new { message = "User not found." });
             }
-
+            var gravatar_id = GetMd5Hash(user.Email.ToLower());
             return Ok(new
             {
                 user.Id,
                 user.UserName,
                 user.Email,
-                user.Name // or other custom fields
+                user.Name, // or other custom fields
+                gravatar = $"https://secure.gravatar.com/avatar/{gravatar_id}?s=80",
+                gravatar_id,
             });
+        }
+        private static string GetMd5Hash(string input)
+        {
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                var inputBytes = Encoding.ASCII.GetBytes(input);
+                var hashBytes = md5.ComputeHash(inputBytes);
+                return string.Concat(hashBytes.Select(b => b.ToString("x2")));
+            }
         }
     }
 }
