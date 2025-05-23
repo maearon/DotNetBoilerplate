@@ -97,11 +97,42 @@ namespace DotNetBoilerplate.Controllers.Api
 
         // POST: api/microposts
         [HttpPost]
-        public async Task<IActionResult> CreateMicropost([FromForm] MicropostCreateDto model)
+        // public async Task<IActionResult> CreateMicropost([FromForm] MicropostCreateDto model)
+        public async Task<IActionResult> CreateMicropost()
         {
-            if (!ModelState.IsValid)
+            Console.WriteLine("🔥 CreateMicropost called"); // THÊM DÒNG NÀY
+
+            var form = Request.Form;
+
+            Console.WriteLine("🔥 Form keys:");
+Console.WriteLine("🔥 Form content keys:");
+Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(form.Keys.ToArray()));
+
+Console.WriteLine("🔥 Uploaded files:");
+Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(form.Files.Select(f => new { f.Name, f.FileName, f.Length })));
+
+
+Console.WriteLine("🔥 Uploaded files:");
+foreach (var file in form.Files)
+{
+    Console.WriteLine($"🎯 File: {file.Name} - {file.FileName}");
+}
+            
+            var content = form["micropost[content]"];
+            // var image = form.Files.GetFile("image");
+            var image = form.Files.GetFile("micropost[image]");
+            foreach (var file in form.Files)
             {
-                return BadRequest(ModelState);
+                Console.WriteLine($"🔥 Received file: {file.Name} - {file.FileName}");
+            }
+            // if (!ModelState.IsValid)
+            // {
+            //     return BadRequest(ModelState);
+            // }
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                // return BadRequest(new { errors =  { "Content": ["The Content field is required."] } });
+                return BadRequest(new { error = "Content is required." });
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -113,27 +144,41 @@ namespace DotNetBoilerplate.Controllers.Api
 
             var micropost = new Micropost
             {
-                Content = model.Content,
+                // Content = model.Content,
+                Content = content,
                 UserId = userId,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
 
-            if (model.Image != null)
+            if (image != null)
             {
                 // Process and save the image
                 string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "uploads");
+                Console.WriteLine($"WebRootPath: {_hostEnvironment.WebRootPath}");
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);
                 }
 
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+
+                // using (var fileStream = new FileStream(filePath, FileMode.Create))
+                // {
+                //     await image.CopyToAsync(fileStream);
+                // }
+                try
                 {
-                    await model.Image.CopyToAsync(fileStream);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await image.CopyToAsync(fileStream);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"🔥 Failed to save file: {ex.Message}");
+                    return StatusCode(500, new { error = "Failed to save file." });
                 }
 
                 micropost.ImagePath = uniqueFileName;

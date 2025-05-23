@@ -14,14 +14,14 @@
             <v-card-text>
               <div class="d-flex align-center mb-3">
                 <v-avatar size="50" class="mr-3">
-                  <v-img :src="`https://secure.gravatar.com/avatar/${gravatar}?s=50`" :alt="sessionStore.user.name" />
+                  <v-img :src="gravatar" :alt="sessionStore.user.name" />
                 </v-avatar>
                 <div>
                   <h3 class="text-h5">{{ sessionStore.user.name }}</h3>
                   <router-link :to="`/users/${sessionStore.user.id}`">view my profile</router-link>
                 </div>
               </div>
-              <div>{{ micropostCount }} micropost{{ micropostCount !== 1 ? 's' : '' }}</div>
+              <div>{{ totalCount }} micropost{{ totalCount !== 1 ? 's' : '' }}</div>
             </v-card-text>
           </v-card>
 
@@ -79,7 +79,14 @@
                     hide-details
                     class="flex-grow-1"
                     @update:model-value="handleImageInput"
-                  ></v-file-input>
+                  />
+                  <!-- <v-file-input
+                    v-model="image"
+                    accept="image/jpeg,image/gif,image/png"
+                    label="Add image"
+                    hide-details
+                    class="flex-grow-1"
+                  /> -->
                 </div>
               </v-form>
             </v-card-text>
@@ -90,28 +97,35 @@
           <h3 class="text-h5 mb-4">Micropost Feed</h3>
           
           <template v-if="feedItems.length > 0">
-            <v-list class="mb-4">
-              <v-list-item
+            <div class="feed-list mb-4">
+              <div
                 v-for="item in feedItems"
                 :key="item.id"
                 :id="`micropost-${item.id}`"
-                class="mb-3"
+                class="feed-item mb-3 d-flex"
               >
-                <template v-slot:prepend>
-                  <v-avatar size="40" class="mr-3">
-                    <v-img
-                      :src="`https://secure.gravatar.com/avatar/${item.gravatar_id}?s=${item.size}`"
-                      :alt="item.user_name"
-                    />
-                  </v-avatar>
-                </template>
-                
-                <v-list-item-title>
-                  <router-link :to="`/users/${item.user_id}`">{{ item.user_name }}</router-link>
-                </v-list-item-title>
-                
-                <v-list-item-subtitle>
-                  <div class="mt-2">{{ item.content }}</div>
+                <!-- Avatar -->
+                <div class="avatar mr-3">
+                  <img
+                    :src="item.user.gravatar"
+                    :alt="item.user_name"
+                    class="rounded-full"
+                    style="width: 40px; height: 40px;"
+                  />
+                </div>
+
+                <!-- Content -->
+                <div class="feed-content">
+                  <div class="font-bold">
+                    <router-link :to="`/users/${item.user_id}`">
+                      {{ item.user_name }}
+                    </router-link>
+                  </div>
+
+                  <div class="mt-2" style="white-space: normal; word-break: break-word;">
+                    {{ item.content }}
+                  </div>
+
                   <div v-if="item.image" class="mt-2">
                     <img
                       :src="item.image"
@@ -120,25 +134,27 @@
                       style="max-height: 400px;"
                     />
                   </div>
-                  <div class="mt-2 text-caption">
+
+                  <div class="mt-2 text-caption text-sm text-gray-500">
                     Posted {{ item.timestamp }} ago.
                     <a
-                      v-if="sessionStore.user.id === item.user_id"
+                      v-if="sessionStore.user.id === item.user.id"
                       href="#"
                       @click.prevent="removeMicropost(item.id)"
-                      class="ml-2"
+                      class="ml-2 text-red-500 hover:underline"
                     >
                       delete
                     </a>
                   </div>
-                </v-list-item-subtitle>
-              </v-list-item>
-            </v-list>
-            
-            <div class="text-center">
+                </div>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="text-center mt-4">
               <v-pagination
                 v-model="page"
-                :length="Math.ceil(totalCount / 5)"
+                :length="Math.ceil(totalCount / 10)"
                 @update:model-value="handlePageChange"
               ></v-pagination>
             </div>
@@ -243,9 +259,8 @@ const handlePageChange = (newPage: number) => {
   page.value = newPage
 }
 
-const handleImageInput = (files: File[]) => {
-  if (files && files.length > 0) {
-    const file = files[0]
+const handleImageInput = (file: File | null) => {
+  if (file) {
     const sizeInMB = file.size / 1024 / 1024
     if (sizeInMB > 512) {
       toast.error('Maximum file size is 512MB. Please choose a smaller file.')
@@ -257,6 +272,7 @@ const handleImageInput = (files: File[]) => {
   }
 }
 
+
 const handleSubmit = async () => {
   submitting.value = true
   errors.value = []
@@ -264,6 +280,7 @@ const handleSubmit = async () => {
   try {
     const formData = new FormData()
     formData.append('micropost[content]', content.value)
+    // formData.append('micropost[image]', image.value, image.value.name)
     
     if (image.value) {
       formData.append('micropost[image]', image.value, imageName.value)
@@ -271,8 +288,8 @@ const handleSubmit = async () => {
     
     const response = await micropostApi.create(formData)
     
-    if (response.flash) {
-      toast.success(response.flash[1])
+    if (response.content) {
+      toast.success("Micropost created!")
       content.value = ''
       image.value = null
       errors.value = []
@@ -280,10 +297,10 @@ const handleSubmit = async () => {
     }
     
     if (response.error) {
-      errors.value = response.error
+      toast.error(response.error)
     }
   } catch (error) {
-    toast.error('Failed to create micropost')
+    toast.error(error.response.data.error)
   } finally {
     submitting.value = false
   }
@@ -294,8 +311,8 @@ const removeMicropost = async (micropostId: number) => {
   if (confirmed) {
     try {
       const response = await micropostApi.remove(micropostId)
-      if (response.flash) {
-        toast.success(response.flash[1])
+      if (response === "" || response === undefined) {
+        toast.success("Micropost deleted")
         await setFeeds()
       }
     } catch (error) {

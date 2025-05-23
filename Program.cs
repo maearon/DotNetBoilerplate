@@ -147,7 +147,7 @@ else
 app.UseCors();
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(); // 👈 Static files (CSS, JS, images, wwwwroor/uploads)
 
 app.UseRouting();
 

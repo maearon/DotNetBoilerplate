@@ -225,8 +225,8 @@ const removeMicropost = async (micropostId: number) => {
   if (confirmed) {
     try {
       const response = await micropostApi.remove(micropostId)
-      if (response.flash) {
-        toast.success(response.flash[1])
+      if (response === "" || response === undefined) {
+        toast.success("Micropost deleted")
         await setWall()
       }
     } catch (error) {

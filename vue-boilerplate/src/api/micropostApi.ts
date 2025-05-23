@@ -29,27 +29,34 @@ export interface Micropost {
   description?: string
   videoId?: string
   channelTitle?: string
+  user: UserMicropost
 }
 
-// export interface CreateParams {
-//   user: SignUpField
-// }
+export interface UserMicropost {
+  readonly id: string
+  name: string
+  email: string
+  gravatar: string
+}
 
-// export interface SignUpField {
-//   name: string
-//   email: string
-//   password: string
-//   password_confirmation: string
-// }
+export interface CreateParams {
+  user: SignUpField
+}
+
+export interface SignUpField {
+  name: string
+  email: string
+  password: string
+  password_confirmation: string
+}
 
 export interface CreateResponse {
   flash?: [message_type: string, message: string]
   error?: ErrorMessageType
+  content: string
 }
 
-export interface Response {
-  flash?: [message_type: string, message: string]
-}
+export type Response = string
 
 const micropostApi = {
   getAll(params: ListParams): Promise<ListResponse<Micropost>> {
@@ -57,10 +64,12 @@ const micropostApi = {
     return API.get(url, { params });
   },
 
-  // create(params: CreateParams): Promise<CreateResponse> {
-  //   const url = '/microposts';
-  //   return API.post(url,params, headers: { Content-Type:'multipart/form-data' } })
-  // },
+  create(params: FormData): Promise<CreateResponse> {
+  // create(params: CreateParams): Promise<CreateResponse>
+  // create(params: any): Promise<CreateResponse> {
+    const url = '/microposts';
+    return API.post(url, params, { headers: { 'Content-Type': 'multipart/form-data' } });
+  },
 
   remove(id: number): Promise<Response> {
     const url = `/microposts/${id}`;

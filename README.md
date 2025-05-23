@@ -72,7 +72,8 @@ Step 3: Apply the changes
 source ~/.bashrc
 sudo /home/maearon/dotnet/dotnet dev-certs https --clean
 sudo /home/maearon/dotnet/dotnet dev-certs https --trust
-dotnet watch run --launch-profile https
+
+
 
 dotnet tool install --global dotnet-ef
 ✅ Permanent Fix
@@ -111,6 +112,9 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Your_password123" \
     "DefaultConnection": "Server=localhost,1433;Database=MyAppDb;User Id=sa;Password=Your_password123;TrustServerCertificate=true"
 },
 dotnet ef database update
+
+[[[[[[[[[dotnet watch run --launch-profile https]]]]]]]]]
+[[[[[[[[[docker rm sqlserver]]]]]]]]] (run docker and ef again if need)
 
 PS C:\Users\manhn\code\DotNetBoilerplate> dotnet --list-sdks
 9.0.300 [C:\Program Files\dotnet\sdk]
