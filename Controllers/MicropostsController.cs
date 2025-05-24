@@ -86,7 +86,7 @@ namespace DotNetBoilerplate.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var micropost = await _context.Microposts.FindAsync(id);
+            var micropost = await _context.Microposts.FindAsync((long)id);
             if (micropost == null)
             {
                 return NotFound();

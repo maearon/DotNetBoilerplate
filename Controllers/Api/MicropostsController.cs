@@ -205,9 +205,9 @@ foreach (var file in form.Files)
 
         // DELETE: api/microposts/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMicropost(int id)
+        public async Task<IActionResult> DeleteMicropost(long id)
         {
-            var micropost = await _context.Microposts.FindAsync(id);
+            var micropost = await _context.Microposts.FindAsync((long)id);
             if (micropost == null)
             {
                 return NotFound();
