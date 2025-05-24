@@ -8,10 +8,10 @@ namespace DotNetBoilerplate.Controllers
     [AllowAnonymous]
     public class HealthCheckController : ControllerBase
     {
-        [HttpGet("up")]
+        [HttpGet("up"), HttpHead("up")]
         public IActionResult Status()
         {
-            return Ok();
+            return Ok(new { status = "ok", timestamp = DateTime.UtcNow });
         }
     }
 }
