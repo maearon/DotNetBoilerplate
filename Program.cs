@@ -16,7 +16,7 @@ builder.Services.AddRazorPages();
 
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Load JWT config
 var jwtSettings = builder.Configuration.GetSection("Jwt");

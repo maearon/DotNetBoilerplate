@@ -126,6 +126,11 @@ dotnet ef database update
 [[[[[[[[[Visual Studio - F5]]]]]]]]]
 [[[[[[[[[cd vue-boilerplate - npm run dev]]]]]]]]]
 
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+"ConnectionStrings": {
+    "DefaultConnection": "Host=ep-bold-voice-a4yp8xc9-pooler.us-east-1.aws.neon.tech;Database=verceldb;Username=default;Password=z9GYTlrXa8Qx;Ssl Mode=Require;Trust Server Certificate=true"
+},
+
 PS C:\Users\manhn\code\DotNetBoilerplate> dotnet --list-sdks
 9.0.300 [C:\Program Files\dotnet\sdk]
 ```
