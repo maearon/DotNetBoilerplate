@@ -100,7 +100,9 @@ maearon@maearon:~/code/DotNetBoilerplate$ dotnet ef
 
 Entity Framework Core .NET Command-line Tools 9.0.5
 If you don't have a Migration yet, create your first migration:
-dotnet ef migrations add InitOrFixModel ()
+rm -rf Migrations
+DOTNET_ROOT=$HOME/.dotnet $HOME/.dotnet/dotnet ef migrations add InitOrFixModel --verbose  --context ApplicationDbContext
+DOTNET_ROOT=$HOME/.dotnet $HOME/.dotnet/dotnet ef database update --context ApplicationDbContext
 System.PlatformNotSupportedException: LocalDB is not supported on this platform. (Ubuntu OS)
 ✅ Cause
 You are using Linux (Ubuntu), but the connection string in the app is using LocalDB, and LocalDB only works on Windows.
