@@ -18,6 +18,10 @@ namespace DotNetBoilerplate.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Micropost>()
+                .Property(m => m.Id)
+                .ValueGeneratedOnAdd(); // Ensures Id is auto-generated
+
             // Configure Micropost entity
             modelBuilder.Entity<Micropost>()
                 .HasOne(m => m.User)

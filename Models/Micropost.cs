@@ -6,7 +6,8 @@ namespace DotNetBoilerplate.Models
     public class Micropost
     {
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(140)]
